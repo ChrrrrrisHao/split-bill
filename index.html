@@ -160,6 +160,7 @@ button{cursor:pointer}
   .exp .ic{width:34px;height:34px;font-size:18px}
   .icon-btn{width:28px}
   .exp .meta{white-space:normal}
+  .exp .meta span{white-space:nowrap}
   .exp-detail{padding-left:12px}
 }
 .empty{text-align:center;color:var(--muted);padding:22px 10px;font-size:14px;list-style:none}
@@ -638,7 +639,7 @@ function renderExpenses() {
         <span class="ic" aria-hidden="true">${CATS[e.cat][0]}</span>
         <button type="button" class="info" data-toggle="${e.id}" aria-expanded="${open}">
           <span class="t">${esc(e.title)}</span>
-          <span class="meta">${esc(p.name)} 先付 · ${MODE_NAME[e.mode]} ${Object.keys(shares).length} 人${e.fee ? ' · 含服務費' : ''}</span>
+          <span class="meta">${[`${esc(p.name)} 先付`, `${MODE_NAME[e.mode]} ${Object.keys(shares).length} 人`, e.fee ? '含服務費' : ''].filter(Boolean).map(s => `<span>${s}</span>`).join(' · ')}</span>
         </button>
         <span class="amt mono">${money(total)}</span>
         <button type="button" class="icon-btn" data-edit="${e.id}" aria-label="編輯 ${esc(e.title)}" title="編輯">✏️</button>
